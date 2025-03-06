@@ -1,0 +1,5 @@
+public:
+  settings:
+    site_name: "My Restaurant"
+    logo: "assets/Logos/log.png"  # Path to your logo image
+    background_image: "assets/Images/background.jpg"  # Path to background image
