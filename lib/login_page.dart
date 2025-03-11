@@ -1,8 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: unused_import, prefer_final_fields
 
 import 'package:flutter/material.dart';
-import 'database_helper.dart';
+import 'package:flutter_application_1/database_helper.dart';
 import 'register_page.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,13 +23,13 @@ class _LoginPageState extends State<LoginPage> {
 
     final user = await DatabaseHelper.instance.getUser(phone, password);
 
-    if (!mounted) return; // Ensure widget is still in the tree
+    if (!mounted) return;
 
     if (user != null) {
       Navigator.pushReplacementNamed(context, "/home", arguments: user);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Invalid credentials.")),
+        const SnackBar(content: Text("Invalid credentials. Please try again.")),
       );
     }
   }
@@ -36,41 +37,28 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("DinaBalance Login")),
+      appBar: AppBar(title: const Text("Login")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              controller: phoneController,
-              decoration: const InputDecoration(labelText: "Phone"),
-              keyboardType: TextInputType.phone,
-            ),
-            TextField(
-              controller: passwordController,
-              obscureText: _obscurePassword,
-              decoration: InputDecoration(
-                labelText: "Password",
-                suffixIcon: IconButton(
-                  icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
-                  onPressed: () {
-                    setState(() {
-                      _obscurePassword = !_obscurePassword;
-                    });
-                  },
-                ),
-              ),
-            ),
+            TextField(controller: phoneController, decoration: const InputDecoration(labelText: "Phone (+250XXXXXXXXX)")),
+            TextField(controller: passwordController, obscureText: _obscurePassword, decoration: InputDecoration(labelText: "Password")),
             const SizedBox(height: 16),
             ElevatedButton(onPressed: _login, child: const Text("Login")),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
+              },
+              child: const Text("Create Account"),
+            ),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const RegisterPage()),
-                );
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Forgot Password? Contact support.")));
               },
-              child: const Text("Don't have an account? Register here"),
+              child: const Text("Forgot Password?"),
             ),
           ],
         ),

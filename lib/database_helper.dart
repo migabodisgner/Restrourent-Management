@@ -52,4 +52,9 @@ class DatabaseHelper {
 
     return result.isNotEmpty ? result.first : null;
   }
+
+  Future<List<Map<String, dynamic>>> getAllUsers() async {
+    final db = await database;
+    return await db.query("users"); // Fetch all users
+  }
 }
