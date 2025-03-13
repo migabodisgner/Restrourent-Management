@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Map<String, dynamic>? user;
   List<Map<String, dynamic>> _users = [];
-
+  
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,116 +40,154 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(199, 211, 208, 151),
-          title: const Text("DinaBalance"),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Home'),
-              Tab(text: 'Client'),
-              Tab(text: 'Help'),
-              Tab(text: 'Customers'),
-              Tab(text: 'Settings'),
-            ],
-          ),
-        ),
-        body: TabBarView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(197, 46, 128, 100),
+        title: const Text("DinaBalance"),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            // Home Page
-            Container(
-              color: const Color.fromARGB(255, 199, 175, 180), // Adjusted opacity
-              child: const Center(
-                child: Text(
-                  "Welcome to Home Page",
-                  style: TextStyle(color: Color.fromARGB(255, 8, 61, 129)),
-                ),
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text(
+                'Menu',
+                style: TextStyle(color: Color.fromARGB(255, 80, 38, 83), fontSize: 24),
               ),
             ),
-
-            // About Us Page (Includes Logout Button)
-            Container(
-              color: const Color.fromARGB(255, 199, 175, 180),
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Welcome to DinaBalance Reception App.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  if (user != null) ...[
-                    const Text(
-                      "Registered User:",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Name: ${user!['fullname']}",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      "Phone: ${user!['phone']}",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _logout,
-                      child: const Text("Logout"),
-                    ),
-                  ] else ...[
-                    const Text(
-                      "No user information available.",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ],
-              ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+                _navigateToPage(const HomeScreen());
+              },
             ),
-
-            // Help Section
-            Container(
-              color: const Color.fromARGB(255, 199, 175, 180), // Fixed invalid RGB values
-              child: const Center(
-                child: Text("Help Section"),
-              ),
+            ListTile(
+              leading: const Icon(Icons.help),
+              title: const Text('Help'),
+              onTap: () {
+                Navigator.pop(context);
+                _navigateToPage(const HelpScreen());
+              },
             ),
-
-            // Data Page (Registered Users)
-            Container(
-              color: const Color.fromARGB(255, 199, 175, 180),
-              padding: const EdgeInsets.all(16.0),
-              child: _users.isEmpty
-                  ? const Center(
-                      child: Text(
-                        "No users registered.",
-                        style: TextStyle(color: Color.fromARGB(255, 97, 85, 99)),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: _users.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: const Icon(Icons.person, color: Colors.blue),
-                          title: Text(_users[index]["fullname"]),
-                          subtitle: Text("Phone: ${_users[index]["phone"]}"),
-                        );
-                      },
-                    ),
+            ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text('Customers'),
+              onTap: () {
+                Navigator.pop(context);
+                _navigateToPage(CustomersScreen(users: _users));
+              },
             ),
-
-            // Settings Page
-            Container(
-              color: const Color.fromARGB(255, 199, 175, 180),
-              child: const Center(
-                child: Text(
-                  "Settings Page",
-                  style: TextStyle(color: Color.fromARGB(255, 24, 40, 128)),
-                ),
-              ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                _navigateToPage(const SettingsScreen());
+              },
             ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: _logout,
+            ),
+          ],
+        ),
+      ),
+      body: ClientScreen(user: user),
+    );
+  }
+
+  void _navigateToPage(Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      body: const Center(child: Text("Welcome to Home Page")),
+    );
+  }
+}
+
+class HelpScreen extends StatelessWidget {
+  const HelpScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      body: const Center(child: Text("Help Section")),
+    );
+  }
+}
+
+class CustomersScreen extends StatelessWidget {
+  final List<Map<String, dynamic>> users;
+  const CustomersScreen({super.key, required this.users});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      body: users.isEmpty
+          ? const Center(child: Text("No users registered."))
+          : ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: const Icon(Icons.person, color: Colors.blue),
+                  title: Text(users[index]["fullname"]),
+                  subtitle: Text("Phone: ${users[index]["phone"]}"),
+                );
+              },
+            ),
+    );
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      body: const Center(child: Text("Settings Page")),
+    );
+  }
+}
+
+class ClientScreen extends StatelessWidget {
+  final Map<String, dynamic>? user;
+  const ClientScreen({super.key, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Welcome to DinaBalance Reception App.", textAlign: TextAlign.center),
+            if (user != null) ...[
+              const SizedBox(height: 10),
+              Text("Name: ${user!["fullname"]}"),
+              Text("Phone: ${user!["phone"]}"),
+            ] else
+              const Text("No user information available."),
           ],
         ),
       ),
