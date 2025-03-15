@@ -1,64 +1,46 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'payment_details_page.dart';
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key, Map<String, dynamic>? user});
-
-  @override
-  State<PaymentPage> createState() => _PaymentPageState();
-}
-
-class _PaymentPageState extends State<PaymentPage> {
-  final TextEditingController amountController = TextEditingController();
-  String? selectedPaymentMethod;
-
-  Future<void> _updatePayment() async {
-    if (selectedPaymentMethod == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please select a payment method.")));
-      return;
-    }
-
-    final prefs = await SharedPreferences.getInstance();
-    double amount = double.tryParse(amountController.text) ?? 0;
-    double currentBalance = prefs.getDouble("remainingBalance") ?? 100;
-
-    if (amount <= 0 || amount > currentBalance) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Invalid amount.")));
-      return;
-    }
-
-    prefs.setDouble("remainingBalance", currentBalance - amount);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Payment successful!")));
-
-    Navigator.pop(context);
-  }
+class PaymentPage extends StatelessWidget {
+  const PaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> plans = [
+      {"name": "Basic Plan", "price": "600 RWF", "duration": "one plate"},
+      {"name": "Standard Plan", "price": "17,500 RWF", "duration": "15 Days"},
+      {"name": "Premium Plan", "price": "35,000 RWF", "duration": "30 Days"},
+    ];
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Payment")),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(197, 46, 128, 100),
+        title: const Text("Payment Plans"),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(controller: amountController, decoration: const InputDecoration(labelText: "Amount (RWF)")),
-            DropdownButton<String>(
-              value: selectedPaymentMethod,
-              hint: const Text("Select Payment Method"),
-              items: ["MTN Mobile Money", "Airtel Money"].map((String method) {
-                return DropdownMenuItem(value: method, child: Text(method));
-              }).toList(),
-              onChanged: (String? value) {
-                setState(() {
-                  selectedPaymentMethod = value;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(onPressed: _updatePayment, child: const Text("Submit Payment")),
-          ],
+        child: ListView.builder(
+          itemCount: plans.length,
+          itemBuilder: (context, index) {
+            return Card(
+              elevation: 4,
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: ListTile(
+                leading: const Icon(Icons.payment, color: Colors.blue),
+                title: Text(plans[index]["name"], style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text("${plans[index]["price"]} - ${plans[index]["duration"]}"),
+                trailing: const Icon(Icons.arrow_forward, color: Colors.green),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PaymentDetailsPage(plan: plans[index]),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     );

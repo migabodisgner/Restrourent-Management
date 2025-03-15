@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'database_helper.dart';
+import 'payment_page.dart';
 
 class MyHomePage extends StatefulWidget {
   final String userPhone;
@@ -35,6 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+  void _payment(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const PaymentPage()),
     );
   }
 
@@ -87,6 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
                 _navigateToPage(const SettingsScreen());
               },
+            ),
+            ListTile(
+              leading: const Icon(Icons.payment),
+              title: const Text('payment'),
+              onTap: _payment
             ),
             ListTile(
               leading: const Icon(Icons.logout),
