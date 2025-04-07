@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/event.dart';
 import 'login_page.dart';
 import 'database_helper.dart';
 import 'payment_page.dart';
@@ -44,13 +45,32 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const PaymentPage()),
     );
   }
+   void _event(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const EventPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(197, 46, 128, 100),
-        title: const Text("DinaBalance"),
+        backgroundColor: const Color.fromARGB(225, 10, 10, 20),
+         title: Row(
+          children: [
+            Image.asset(
+              'assets/Logos/log.webp',  
+              height: 90,
+              width: 110,  
+            ),
+            const SizedBox(width: 100, height: 20,), // Add space between logo and title
+            const Text(
+              " ",
+              style: TextStyle(color: Color.fromARGB(255, 150, 137, 21)),
+            ),
+          ],
+        )
       ),
       drawer: Drawer(
         child: ListView(
@@ -100,6 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('payment'),
               onTap: _payment
             ),
+            
+            ListTile(
+              leading: const Icon(Icons.event),
+              title: const Text('event'),
+              onTap: _event
+            ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
@@ -108,7 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: ClientScreen(user: user),
+      body:
+       ClientScreen(user: user),
     );
   }
 
@@ -180,28 +207,59 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
-
 class ClientScreen extends StatelessWidget {
   final Map<String, dynamic>? user;
+  
   const ClientScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Welcome to DinaBalance Reception App.", textAlign: TextAlign.center),
-            if (user != null) ...[
-              const SizedBox(height: 10),
-              Text("Name: ${user!["fullname"]}"),
-              Text("Phone: ${user!["phone"]}"),
-            ] else
-              const Text("No user information available."),
-          ],
-        ),
+    return Scaffold(  
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/Images/background.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Welcome to DinaBalance Reception App.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),  
+                  ),
+                  if (user != null) ...[
+                    const SizedBox(height: 10),
+                    Text(
+                      "Name: ${user!["fullname"]}",
+                      style: const TextStyle(color: Colors.white),  // Set text color to white
+                    ),
+                    Text(
+                      "Phone: ${user!["phone"]}",
+                      style: const TextStyle(color: Colors.white),  // Set text color to white
+                    ),
+                  ] else
+                    const Text(
+                      "No user information available.",
+                      style: TextStyle(color: Colors.white),  // Set text color to white
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

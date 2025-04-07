@@ -37,10 +37,20 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(222, 111, 231, 122),
-        title: const Text(
-          "DinaBalance Sign in Form ",
-          style: TextStyle(color: Color.fromARGB(255, 150, 137, 21)),
+        backgroundColor: const Color.fromARGB(225, 1, 1, 1),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/Logos/log.webp',  // Ensure the image path is correct
+              height: 90,
+              width: 110,  // Adjust the size as needed
+            ),
+            const SizedBox(width: 30), // Add space between logo and title
+            const Text(
+              " Sign in Form",
+              style: TextStyle(color: Color.fromARGB(255, 150, 137, 21)),
+            ),
+          ],
         ),
       ),
       body: Stack(

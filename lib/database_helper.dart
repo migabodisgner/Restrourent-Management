@@ -57,4 +57,8 @@ class DatabaseHelper {
     final db = await database;
     return await db.query("users"); // Fetch all users
   }
+
+  getEvent() {}
+
+  insert(Map<String, int> row) {}
 }
