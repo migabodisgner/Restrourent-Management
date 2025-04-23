@@ -41,11 +41,11 @@ class _LoginPageState extends State<LoginPage> {
         title: Row(
           children: [
             Image.asset(
-              'assets/Logos/log.webp',  // Ensure the image path is correct
+              'assets/Logos/log.webp',
               height: 90,
-              width: 110,  // Adjust the size as needed
+              width: 110,
             ),
-            const SizedBox(width: 30), // Add space between logo and title
+            const SizedBox(width: 30),
             const Text(
               " Sign in Form",
               style: TextStyle(color: Color.fromARGB(255, 150, 137, 21)),
@@ -55,90 +55,106 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Stack(
         children: [
-          // Background Image
           Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/Images/login.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Foreground Content
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  color: const Color.fromARGB(255, 101, 114, 109),
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: phoneController,
-                        decoration: const InputDecoration(
-                          labelText: "Phone (+250XXXXXXXXX)",
-                          labelStyle: TextStyle(
-                              color: Color.fromARGB(255, 65, 44, 52)),
+          Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 101, 114, 109).withOpacity(0.85),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: phoneController,
+                          decoration: const InputDecoration(
+                            labelText: "Phone (+250XXXXXXXXX)",
+                            labelStyle: TextStyle(
+                                color: Color.fromARGB(255, 65, 44, 52)),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      TextField(
-                        controller: passwordController,
-                        obscureText: _obscurePassword,
-                        decoration: const InputDecoration(
-                          labelText: "Password",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 145, 160, 13)),
+                        const SizedBox(height: 10),
+                        TextField(
+                          controller: passwordController,
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
+                            labelText: "Password",
+                            hintStyle: const TextStyle(
+                                color: Color.fromARGB(255, 145, 160, 13)),
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: _login,
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(color: Color.fromARGB(255, 44, 54, 89)),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _login,
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(color: Color.fromARGB(255, 44, 54, 89)),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPage()),
-                    );
-                  },
-                  child: const Text(
-                    "Create Account",
-                    style: TextStyle(color: Color.fromARGB(255, 66, 28, 170)),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
+                      );
+                    },
+                    child: const Text(
+                      "Create Account",
+                      style: TextStyle(color: Color.fromARGB(255, 66, 28, 170)),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          "Forgot Password? Contact support.",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 222, 211, 231)),
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Forgot Password? Contact support.",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 222, 211, 231)),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(color: Color.fromARGB(255, 60, 55, 126)),
+                      );
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(color: Color.fromARGB(255, 60, 55, 126)),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

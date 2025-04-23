@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'home_page.dart';
 import 'register_page.dart';
-import 'payment_page.dart';
-
+import 'package:get/get.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Reception App',
       theme: ThemeData(
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => const LoginPage(),
         "/home": (context) => const MyHomePage(userPhone: '',),
         "/register": (context) => const RegisterPage(),
-        "/payment": (context) => const PaymentPage(),
+       
       },
     );
   }

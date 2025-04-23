@@ -1,8 +1,15 @@
+// ignore_for_file: unused_element, unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/event.dart';
+import 'package:flutter_application_1/main_food.dart';
+import 'package:flutter_application_1/pages/popular_food_detail.dart';
+import 'package:get/get.dart';
 import 'login_page.dart';
 import 'database_helper.dart';
 import 'payment_page.dart';
+import 'package:flutter_application_1/utils/dimensions.dart';
+import 'package:flutter_application_1/pages/recomanded_food_datail.dart';
 
 class MyHomePage extends StatefulWidget {
   final String userPhone;
@@ -16,7 +23,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Map<String, dynamic>? user;
   List<Map<String, dynamic>> _users = [];
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -39,38 +46,58 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
-  void _payment(){
+
+  void _payment() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const PaymentPage()),
     );
   }
-   void _event(){
+
+  void _event() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const EventPage()),
     );
   }
 
+  void _main_Food() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const MainFood()),
+    );
+  }
+ void _popular_food_detail(){
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const PopularFoodDetail()),
+  );
+ }
+ void _recomanded_food_datail(){
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const RecomandedFoodDatail()),
+  );
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(225, 10, 10, 20),
-         title: Row(
+        title: Row(
           children: [
             Image.asset(
-              'assets/Logos/log.webp',  
+              'assets/Logos/log.webp',
               height: 90,
-              width: 110,  
+              width: 110,
             ),
-            const SizedBox(width: 100, height: 20,), // Add space between logo and title
+            const SizedBox(width: 100, height: 20),
             const Text(
               " ",
               style: TextStyle(color: Color.fromARGB(255, 150, 137, 21)),
             ),
           ],
-        )
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -84,22 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                _navigateToPage(const HomeScreen());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.help),
-              title: const Text('Help'),
-              onTap: () {
-                Navigator.pop(context);
-                _navigateToPage(const HelpScreen());
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.people),
               title: const Text('Customers'),
               onTap: () {
@@ -107,35 +118,41 @@ class _MyHomePageState extends State<MyHomePage> {
                 _navigateToPage(CustomersScreen(users: _users));
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-                _navigateToPage(const SettingsScreen());
-              },
-            ),
+            
             ListTile(
               leading: const Icon(Icons.payment),
               title: const Text('payment'),
-              onTap: _payment
+              onTap: _payment,
             ),
-            
             ListTile(
               leading: const Icon(Icons.event),
               title: const Text('event'),
-              onTap: _event
+              onTap: _event,
             ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: _logout,
             ),
+            ListTile(
+              leading: const Icon(Icons.fastfood),
+              title: const Text('Main Food'),
+              onTap: _main_Food,
+            ),
+            ListTile(
+              leading: const Icon(Icons.food_bank_rounded),
+              title: const Text('PopularFoodpages'),
+              onTap: _popular_food_detail,
+            ),
+            ListTile(
+              leading: const Icon(Icons.recommend),
+              title: const Text('RecomandedFoodDatail'),
+              onTap: _recomanded_food_datail,
+            ),
           ],
         ),
       ),
-      body:
-       ClientScreen(user: user),
+      body: ClientScreen(user: user),
     );
   }
 
@@ -152,8 +169,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(179, 243, 244, 244),
-      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      backgroundColor: const Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(
+        title: const Text(
+          "DinaBalance",
+          style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),
+        ),
+      ),
       body: const Center(child: Text("Welcome to Home Page")),
     );
   }
@@ -164,8 +186,13 @@ class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(179, 243, 244, 244),
-      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      backgroundColor: const Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(
+        title: const Text(
+          "DinaBalance",
+          style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),
+        ),
+      ),
       body: const Center(child: Text("Help Section")),
     );
   }
@@ -178,8 +205,13 @@ class CustomersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(179, 243, 244, 244),
-      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      backgroundColor: const Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(
+        title: const Text(
+          "DinaBalance",
+          style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),
+        ),
+      ),
       body: users.isEmpty
           ? const Center(child: Text("No users registered."))
           : ListView.builder(
@@ -201,65 +233,74 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(179, 243, 244, 244),
-      appBar: AppBar(title: const Text("DinaBalance",style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),)),
+      backgroundColor: const Color.fromARGB(179, 243, 244, 244),
+      appBar: AppBar(
+        title: const Text(
+          "DinaBalance",
+          style: TextStyle(color: Color.fromARGB(145, 112, 4, 201)),
+        ),
+      ),
       body: const Center(child: Text("Settings Page")),
     );
   }
 }
+
 class ClientScreen extends StatelessWidget {
   final Map<String, dynamic>? user;
-  
+
   const ClientScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  
-      body: Stack(
-        children: [
-          // Background Image
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/Images/background.jpg"),
-                fit: BoxFit.cover,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // Background Image
+            Container(
+              width: 500,
+              height: 5001,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/Images/background.jpg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Welcome to DinaBalance Reception App.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),  
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Welcome to DinaBalance Reception App.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      if (user != null) ...[
+                        const SizedBox(height: 10),
+                        Text(
+                          "Name: ${user!["fullname"]}",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          "Phone: ${user!["phone"]}",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ] else
+                        const Text(
+                          "No user information available.",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                    ],
                   ),
-                  if (user != null) ...[
-                    const SizedBox(height: 10),
-                    Text(
-                      "Name: ${user!["fullname"]}",
-                      style: const TextStyle(color: Colors.white),  // Set text color to white
-                    ),
-                    Text(
-                      "Phone: ${user!["phone"]}",
-                      style: const TextStyle(color: Colors.white),  // Set text color to white
-                    ),
-                  ] else
-                    const Text(
-                      "No user information available.",
-                      style: TextStyle(color: Colors.white),  // Set text color to white
-                    ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
