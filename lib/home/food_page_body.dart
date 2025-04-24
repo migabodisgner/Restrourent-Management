@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, use_super_parameters, library_private_types_in_public_api, prefer_final_fields
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widget/app_column.dart';
@@ -155,7 +157,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         SmallText(text: "comment"),
                       ],
                     ),
-                    SizedBox(height: Dimensions.height5),
+                    SizedBox(height: Dimensions.height15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

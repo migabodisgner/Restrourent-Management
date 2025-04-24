@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, use_super_parameters, sort_child_properties_last, prefer_adjacent_string_concatenation
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';

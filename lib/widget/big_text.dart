@@ -1,4 +1,6 @@
 // lib/widget/big_text.dart
+// ignore_for_file: duplicate_import, use_super_parameters
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';

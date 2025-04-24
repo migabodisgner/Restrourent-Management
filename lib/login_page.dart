@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/database_helper.dart';

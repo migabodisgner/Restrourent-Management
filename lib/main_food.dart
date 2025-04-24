@@ -1,4 +1,6 @@
 // lib/pages/main_food.dart
+// ignore_for_file: use_super_parameters, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home/food_page_body.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';

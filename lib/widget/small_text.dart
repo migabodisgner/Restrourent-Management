@@ -1,4 +1,6 @@
 // lib/widget/small_text.dart
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 
 class SmallText extends StatelessWidget {

@@ -1,3 +1,6 @@
+// ignore_for_file: unused_field, file_names
+
+import 'package:flutter_application_1/utils/app_constants.dart';
 import 'package:get/get.dart';
 
 class ApiClient  extends GetConnect implements GetxService{
@@ -10,6 +13,7 @@ class ApiClient  extends GetConnect implements GetxService{
     required this.appBaseUrl}){
       baseUrl = appBaseUrl;
       timeout = Duration(seconds: 30);
+      token =AppConstants.TOKEN;
       _mainHeader={
         'Content-type':'application/json; charset=UTF-8',
         'Authorization': 'Bear $token',

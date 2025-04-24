@@ -1,4 +1,7 @@
+// ignore_for_file: recursive_getters, avoid_print
+
 import 'package:flutter_application_1/data/repository/popular_product_repo.dart';
+import 'package:flutter_application_1/models/products_model.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController {
@@ -9,9 +12,11 @@ class PopularProductController extends GetxController {
 
   Future<void> getPopularProductList()async {
     Response response = await popularProductRepo.getPopularProductList();
-    if(response.statusCode==20){
+    if(response.statusCode==200){
+      print("got product");
       _popularProductList=[];
-     // _popularProductList.addAll();
+      _popularProductList.addAll(Product.fromJson(response.body).products);
+      print(_popularProductList);
       update();
     }else{
 

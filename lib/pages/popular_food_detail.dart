@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unnecessary_import, use_super_parameters, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';
