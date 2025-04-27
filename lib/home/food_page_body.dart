@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import, use_super_parameters, library_private_types_in_public_api, prefer_final_fields
+// ignore_for_file: unnecessary_import, use_super_parameters, library_private_types_in_public_api, prefer_final_fields, sized_box_for_whitespace
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_application_1/widget/icon_and_text_widget.dart';
 import 'package:flutter_application_1/widget/small_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_application_1/utils/dimensions.dart';
+import 'package:flutter_application_1/pages/recomanded_food_datail.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -42,6 +43,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Back Button
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Go back!'),
+          ),
+        ),
+
         // PageView
         Container(
           height: Dimensions.pageView,
@@ -96,99 +107,105 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         SizedBox(height: Dimensions.height10),
 
         // Food List
-         
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10,
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: Dimensions.ListViewImgSize,
-                      height: Dimensions.ListViewImgSize,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimensions.radius20),
-                        color: Colors.white38,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage("assets/Images/food1.png"),
-                          
-                        ),
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: Dimensions.width20,
+                right: Dimensions.width20,
+                bottom: Dimensions.height10,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: Dimensions.ListViewImgSize,
+                    height: Dimensions.ListViewImgSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                      color: Colors.white38,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/Images/food1.png"),
                       ),
                     ),
-                 //text contoiner
+                  ),
+                  // Text Container with tap
                   Expanded(
                     child: Container(
-
-                    height: Dimensions.ListViewTextContSize,
-                    
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(Dimensions.radius20),
-                        bottomRight: Radius.circular(Dimensions.radius20)
-                      ),
-                      color: Colors.grey,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BigText(text: "Self Services"),
-                          SizedBox(height: Dimensions.height5),
-                          SmallText(text: "with chanese characteristic"),
-                          SizedBox(height: Dimensions.height5),
-                               Row(
-                      children: [
-                        
-                       SizedBox(width: 10),
-                        SmallText(text: "4.5"),
-                        SizedBox(width: 10),
-                        SmallText(text: "1287"),
-                        SizedBox(width: 10),
-                        SmallText(text: "comment"),
-                      ],
-                    ),
-                    SizedBox(height: Dimensions.height5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndTextWidget(
-                          icon: Icons.circle_sharp,
-                          text: "Normal",
-                          iconColor: Colors.black,
+                      height: Dimensions.ListViewTextContSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(Dimensions.radius20),
+                          bottomRight: Radius.circular(Dimensions.radius20),
                         ),
-                        IconAndTextWidget(
-                          icon: Icons.location_on,
-                          text: "1.7km",
-                          iconColor: Color.fromARGB(111, 1, 3, 199),
+                        color: Colors.grey,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: Dimensions.width10,
+                          right: Dimensions.width10,
                         ),
-                        IconAndTextWidget(
-                          icon: Icons.access_time_rounded,
-                          text: "32 min",
-                          iconColor: Color.fromARGB(222, 123, 213, 199),
+                        child: GestureDetector(
+                          onTap: () {
+                            // Action on tap
+                            Navigator.push(context,
+                             MaterialPageRoute(builder: (context)=>RecomandedFoodDatail ())
+                             );
+                            // Navigator.push(...) if needed
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BigText(text: "Self Services"),
+                              SizedBox(height: Dimensions.height5),
+                              SmallText(text: "with chanese characteristic"),
+                              SizedBox(height: Dimensions.height5),
+                              Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  SmallText(text: "4.5"),
+                                  SizedBox(width: 10),
+                                  SmallText(text: "1287"),
+                                  SizedBox(width: 10),
+                                  SmallText(text: "comment"),
+                                ],
+                              ),
+                              SizedBox(height: Dimensions.height5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconAndTextWidget(
+                                    icon: Icons.circle_sharp,
+                                    text: "Normal",
+                                    iconColor: Colors.black,
+                                  ),
+                                  IconAndTextWidget(
+                                    icon: Icons.location_on,
+                                    text: "1.7km",
+                                    iconColor: Color.fromARGB(111, 1, 3, 199),
+                                  ),
+                                  IconAndTextWidget(
+                                    icon: Icons.access_time_rounded,
+                                    text: "32 min",
+                                    iconColor: Color.fromARGB(222, 123, 213, 199),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
+                      ),
                     ),
-                        ],
-                      ),
-                      ),
                   )
-                  )
-                  ],
-                ),
-              );
-            },
-          ),
-        
+                ],
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -253,7 +270,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   left: 15,
                   right: 15,
                 ),
-                child:AppColumn(text: "Self services",)
+                child: AppColumn(text: "Self services"),
               ),
             ),
           ),

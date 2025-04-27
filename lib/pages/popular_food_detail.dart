@@ -26,22 +26,12 @@ class PopularFoodDetail extends StatelessWidget{
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/Images/fruit.jpg"))
+                  image: AssetImage("assets/Images/drink.png"))
               ),
             ),
           ),
             //icons widget
-            Positioned(
-              top: Dimensions.height45,
-              left: Dimensions.width20,
-              right: Dimensions.width20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 AppIcon(icon: Icons.arrow_back_ios),
-                 AppIcon(icon: Icons.shopping_cart_outlined)
-               ], 
-             )),
+            
             // introduction
               Positioned(
                 left: 0,

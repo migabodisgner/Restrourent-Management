@@ -48,33 +48,33 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _payment() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const PaymentPage()),
     );
   }
 
   void _event() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const EventPage()),
     );
   }
 
   void _main_Food() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const MainFood()),
     );
   }
  void _popular_food_detail(){
-  Navigator.pushReplacement(
+  Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => const PopularFoodDetail()),
   );
  }
  void _recomanded_food_datail(){
-  Navigator.pushReplacement(
+  Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => const RecomandedFoodDatail()),
   );
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(225, 10, 10, 20),
         title: Row(
@@ -99,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -152,7 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: ClientScreen(user: user),
+      body: 
+       ClientScreen(user: user),
     );
   }
 
